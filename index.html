@@ -573,7 +573,7 @@ function statusChip(statusRaw) {
   return `<span class="status s-wait"><span class="dot"></span>대기</span>`;
 }
 
-  function jsonp(url, timeout = 10000) {
+    function jsonp(url, timeout = 10000) {
   
     return new Promise((resolve, reject) => {
   
@@ -620,7 +620,7 @@ function statusChip(statusRaw) {
   
     });
   }
-
+  
 async function apiGetList() {
 
   const url = new URL(CONFIG.API_BASE);
@@ -812,6 +812,8 @@ $("refreshBtn").addEventListener("click", () => {
 });
 
 $("search").addEventListener("input", applyFiltersAndRender);
+console.log("JS loaded successfully");  
+  
 
 </script>
 
