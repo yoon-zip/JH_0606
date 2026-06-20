@@ -373,9 +373,9 @@ function filterAndRender() {
   const selectedDate = $("dateFilter").value;
   const q = $("search").value.trim().toLowerCase();
 
-  let items = allItems;
+  let items = [...allItems];
 
-  // 날짜 필터 (더 안전하게 처리)
+  // 날짜 필터
   if (selectedDate) {
     items = items.filter(item => {
       const itemDate = String(item.date || "").trim();
@@ -383,42 +383,44 @@ function filterAndRender() {
     });
   }
 
-  // 검색어 필터
+  // 검색 필터
   if (q) {
-    items = items.filter(it => 
-      `${it.name} ${it.level} ${it.ageGroup || ''}`.toLowerCase().includes(q)
+    items = items.filter(item =>
+      `${item.name} ${item.level} ${item.ageGroup || ""}`
+        .toLowerCase()
+        .includes(q)
     );
   }
 
-  // 참가자 수 업데이트
-  $("countText").textContent = `${items.length}명`;
+  // 인원 수 표시
+  $("countText").textContent =
+    selectedDate
+      ? `${selectedDate.replace("2026-", "")} • ${items.length}명`
+      : `전체 ${items.length}명`;
 
   const tbody = $("tbody");
+
   if (items.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:60px; color:var(--muted);">표시할 참가자가 없습니다.</td></tr>`;
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="4" style="text-align:center; padding:60px; color:var(--muted);">
+          해당 날짜의 신청자가 없습니다.
+        </td>
+      </tr>
+    `;
     return;
   }
 
-  tbody.innerHTML = items.map(it => `
+  tbody.innerHTML = items.map(item => `
     <tr>
-      <td>${statusChip(it.status)}</td>
-      <td style="font-weight:700;">${escapeHtml(it.name)}</td>
-      <td>${escapeHtml(it.ageGroup || '-')}</td>
-      <td>${escapeHtml(it.level)}</td>
+      <td>${statusChip(item.status)}</td>
+      <td style="font-weight:700;">${escapeHtml(item.name)}</td>
+      <td>${escapeHtml(item.ageGroup || "-")}</td>
+      <td>${escapeHtml(item.level || "-")}</td>
     </tr>
   `).join("");
 }
-
-  tbody.innerHTML = items.map(it => `
-    <tr>
-      <td>${statusChip(it.status)}</td>
-      <td style="font-weight:700;">${escapeHtml(it.name)}</td>
-      <td>${escapeHtml(it.ageGroup || '-')}</td>
-      <td>${escapeHtml(it.level)}</td>
-    </tr>
-  `).join("");
-}
-
+  
 async function refreshList() {
   try {
     setPill("🔄 동기화 중…", true);
