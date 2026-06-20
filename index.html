@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>현충일 졔 벙🔥</title>
+  <title>원코치 벙🔥</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -38,19 +38,11 @@
       margin-bottom: 24px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.6);
     }
-    .hero img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: brightness(0.75) contrast(1.1);
-    }
+    .hero img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.75) contrast(1.1); }
     .hero-overlay {
-      position: absolute;
-      inset: 0;
+      position: absolute; inset: 0;
       background: linear-gradient(to bottom, rgba(10,14,20,0.1), rgba(10,14,20,0.85) 70%);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
+      display: flex; flex-direction: column; justify-content: flex-end;
       padding: 32px 28px;
     }
     .hero h1 {
@@ -59,13 +51,6 @@
       letter-spacing: -1.2px;
       margin-bottom: 8px;
       text-shadow: 0 3px 12px rgba(0,0,0,0.7);
-    }
-    .hero .sub {
-      font-size: 16px;
-      color: #e2e8f0;
-      opacity: 0.95;
-      font-weight: 500;
-      line-height: 1.45;
     }
     .grid {
       display: grid;
@@ -80,7 +65,6 @@
       border-radius: 20px;
       padding: 28px;
       box-shadow: 0 12px 32px rgba(0,0,0,0.4);
-      backdrop-filter: blur(8px);
     }
     .section-title { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
     .section-desc { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
@@ -101,10 +85,7 @@
       color: var(--text);
       font-size: 15px;
     }
-    input:focus, select:focus {
-      outline: none;
-      border-color: var(--accent);
-    }
+    input:focus, select:focus { outline: none; border-color: var(--accent); }
     .two-cols {
       display: grid;
       grid-template-columns: 1fr;
@@ -125,11 +106,6 @@
     .btn-primary {
       background: linear-gradient(135deg, var(--accent) 0%, #c026d3 100%);
       color: white;
-    }
-    .btn-secondary {
-      background: rgba(59,130,246,0.15);
-      border: 1px solid rgba(59,130,246,0.4);
-      color: #93c5fd;
     }
     .pill {
       display: inline-flex;
@@ -169,17 +145,11 @@
       font-weight: 700;
       font-size: 13px;
     }
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
     .s-ok .dot { background: var(--ok); }
     .s-ok { color: #86efac; }
     .s-wait .dot { background: var(--wait); }
     .s-wait { color: #fde047; }
-    .s-bad .dot { background: var(--bad); }
-    .s-bad { color: #fca5a5; }
     .toast {
       position: fixed;
       bottom: 24px;
@@ -195,20 +165,7 @@
       transition: 0.2s;
     }
     .toast.show { opacity: 1; }
-    .hint {
-      font-size: 13px;
-      color: var(--muted);
-      margin-top: 12px;
-      line-height: 1.6;
-    }
-    .meta-row {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      align-items: center;
-      flex-wrap: wrap;
-      margin-bottom: 32px;
-    }
+    .hint { font-size: 13px; color: var(--muted); margin-top: 12px; line-height: 1.6; }
   </style>
 </head>
 <body>
@@ -224,9 +181,9 @@
         </div>
       </div>
     </div>
-    <div class="meta-row">
+    <div style="text-align:center; margin-bottom:20px;">
       <span class="pill pill-sync-ok" id="syncPill">⏳ 동기화 준비 중…</span>
-      <button class="btn btn-secondary" id="refreshBtn" type="button">새로고침</button>
+      <button class="btn btn-secondary" id="refreshBtn" type="button" style="margin-left:10px;">새로고침</button>
     </div>
   </header>
 
@@ -281,13 +238,15 @@
           </div>
           <div>
             <label for="date">참가 날짜</label>
-            <input type="date" id="date" name="date" required />
+            <select id="date" name="date" required>
+              <option value="" disabled selected>날짜 선택</option>
+              <option value="2026-06-26">6/26 (수)</option>
+              <option value="2026-06-28">6/28 (금)</option>
+            </select>
           </div>
         </div>
 
-        <button class="btn btn-primary" type="submit" id="submitBtn">
-          신청하기
-        </button>
+        <button class="btn btn-primary" type="submit" id="submitBtn">신청하기</button>
       </form>
 
       <div class="hint">
@@ -303,26 +262,20 @@
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:20px;">
         <div>
           <div class="section-title">참가 명단</div>
-          <div id="countText" style="color:var(--muted); font-size:14px;">0명</div>
+          <div id="countText" style="color:var(--muted); font-size:14px;">날짜를 선택해주세요</div>
         </div>
         <div>
-          <span class="pill pill-sync-ok" id="autoPill">🔄 자동 갱신 중</span>
+          <select id="dateFilter" style="padding:10px 14px; border-radius:12px; background:rgba(15,23,42,0.8); color:var(--text); border:1px solid var(--border);">
+            <option value="">전체 날짜</option>
+            <option value="2026-06-26">6/26 (수)</option>
+            <option value="2026-06-28">6/28 (금)</option>
+          </select>
         </div>
       </div>
 
       <div id="waitlistContent">
         <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:16px;">
           <input id="search" placeholder="이름 · 급수 · 나이대 검색" style="flex:1; min-width:180px;" />
-          <select id="filterStatus">
-            <option value="all" selected>전체 상태</option>
-            <option value="대기">대기만</option>
-            <option value="참가">참가만</option>
-          </select>
-          <select id="sortBy">
-            <option value="time_desc" selected>최신 신청순</option>
-            <option value="time_asc">오래된순</option>
-            <option value="name_asc">이름순</option>
-          </select>
         </div>
         <table>
           <thead>
@@ -331,13 +284,12 @@
               <th>이름</th>
               <th style="width:80px;">나이대</th>
               <th style="width:90px;">급수</th>
-              <th style="width:110px;">날짜</th>
             </tr>
           </thead>
           <tbody id="tbody">
             <tr>
-              <td colspan="5" style="text-align:center; padding:40px; color:var(--muted);">
-                명단 불러오는 중…
+              <td colspan="4" style="text-align:center; padding:60px; color:var(--muted);">
+                날짜를 선택하면 명단이 표시됩니다.
               </td>
             </tr>
           </tbody>
@@ -347,18 +299,8 @@
   </div>
 </div>
 
-<footer class="footer-cta" style="max-width:1100px;margin:22px auto 0;padding:18px 16px;text-align:center;color:var(--muted);border-top:1px solid rgba(148,163,184,0.18);">
-  <div style="font-weight:900;color:#e2e8f0;margin-bottom:6px;font-size:15px;">번개 모임, 페이지 하나로 간편하게 관리해 보세요!</div>
-  <a href="https://instagram.com/yoondminton" target="_blank" style="display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:999px;text-decoration:none;font-weight:800;font-size:14px;border:1px solid rgba(225,29,72,0.45);background:rgba(225,29,72,0.12);color:#fecdd3;">
-    문의 👉 @yoondminton
-  </a>
-</footer>
-
 <script>
-window.onerror = function(msg, src, line) {
-  alert(msg + " @line:" + line);
-};
-
+// ==================== 설정 ====================
 const CONFIG = {
   API_BASE: "https://script.google.com/macros/s/AKfycbwJa7ly42IblV7YUwNYiFmCkGRj_zUk_Zv8s-iwg1KT12FcNnY3DjYPre27w7HO3birQg/exec",
   POLL_MS: 10000,
@@ -369,18 +311,14 @@ let allItems = [];
 let pollTimer = null;
 
 function escapeHtml(str) {
-  return String(str ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;");
+  return String(str ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 }
 
-function toast(msg, kind = "info") {
+function toast(msg) {
   const el = $("toast");
   el.textContent = msg;
   el.classList.add("show");
-  clearTimeout(toast._t);
-  toast._t = setTimeout(() => el.classList.remove("show"), 3000);
+  setTimeout(() => el.classList.remove("show"), 3000);
 }
 
 function setPill(text, ok = true) {
@@ -396,25 +334,22 @@ function statusChip(statusRaw) {
   return `<span class="status s-wait"><span class="dot"></span>대기</span>`;
 }
 
-function jsonp(url, timeout = 10000) {
+// JSONP 함수 (기존 유지)
+function jsonp(url) {
   return new Promise((resolve, reject) => {
     const cb = "cb_" + Math.random().toString(36).slice(2);
     const s = document.createElement("script");
-    const timer = setTimeout(() => { cleanup(); reject(new Error("요청 시간 초과")); }, timeout);
-
     const u = new URL(url);
     u.searchParams.set("callback", cb);
     u.searchParams.set("_t", Date.now());
 
-    window[cb] = (data) => { cleanup(); resolve(data); };
-
-    function cleanup() {
-      clearTimeout(timer);
-      try { delete window[cb]; } catch {}
+    window[cb] = (data) => {
+      delete window[cb];
       if (s.parentNode) s.parentNode.removeChild(s);
-    }
+      resolve(data);
+    };
 
-    s.onerror = () => { cleanup(); reject(new Error("JSONP load failed")); };
+    s.onerror = () => reject(new Error("JSONP failed"));
     s.src = u.toString();
     document.head.appendChild(s);
   });
@@ -430,16 +365,19 @@ async function apiGetList() {
 async function apiApply(payload) {
   const url = new URL(CONFIG.API_BASE);
   url.searchParams.set("action", "apply");
-  Object.keys(payload).forEach(key => {
-    url.searchParams.set(key, payload[key]);
-  });
-  const data = await jsonp(url.toString());
-  return data;
+  Object.keys(payload).forEach(key => url.searchParams.set(key, payload[key]));
+  return await jsonp(url.toString());
 }
 
-function applyFiltersAndRender() {
+function filterAndRender() {
+  const selectedDate = $("dateFilter").value;
   const q = $("search").value.trim().toLowerCase();
-  let items = [...allItems];
+
+  let items = allItems;
+
+  if (selectedDate) {
+    items = items.filter(item => item.date === selectedDate);
+  }
 
   if (q) {
     items = items.filter(it => 
@@ -451,7 +389,7 @@ function applyFiltersAndRender() {
 
   const tbody = $("tbody");
   if (items.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:40px;">표시할 항목이 없습니다.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:60px; color:var(--muted);">표시할 참가자가 없습니다.</td></tr>`;
     return;
   }
 
@@ -461,40 +399,34 @@ function applyFiltersAndRender() {
       <td style="font-weight:700;">${escapeHtml(it.name)}</td>
       <td>${escapeHtml(it.ageGroup || '-')}</td>
       <td>${escapeHtml(it.level)}</td>
-      <td>${escapeHtml(it.date || '-')}</td>
     </tr>
   `).join("");
 }
 
-async function refreshList(showToast = false) {
+async function refreshList() {
   try {
     setPill("🔄 동기화 중…", true);
-    const items = await apiGetList();
-    allItems = items;
-    applyFiltersAndRender();
+    allItems = await apiGetList();
+    filterAndRender();
     setPill("✅ 동기화 완료", true);
-    if (showToast) toast("명단 새로고침 완료");
   } catch (e) {
     setPill("⚠️ 동기화 실패", false);
-    toast("불러오기 실패", "bad");
+    toast("명단 불러오기 실패");
   }
-}
-
-function startPolling() {
-  if (pollTimer) clearInterval(pollTimer);
-  pollTimer = setInterval(() => refreshList(false), CONFIG.POLL_MS);
 }
 
 async function onSubmit(e) {
   e.preventDefault();
-  const name = $("name").value.trim();
-  const ageGroup = $("ageGroup").value;
-  const level = $("level").value;
-  const gender = $("gender").value;
-  const date = $("date").value;
+  const payload = {
+    name: $("name").value.trim(),
+    ageGroup: $("ageGroup").value,
+    level: $("level").value,
+    gender: $("gender").value,
+    date: $("date").value
+  };
 
-  if (!name || !ageGroup || !level || !gender || !date) {
-    toast("모든 항목을 입력해주세요.", "bad");
+  if (!payload.name || !payload.ageGroup || !payload.level || !payload.gender || !payload.date) {
+    toast("모든 항목을 입력해주세요.");
     return;
   }
 
@@ -502,12 +434,12 @@ async function onSubmit(e) {
   $("submitBtn").textContent = "신청 중…";
 
   try {
-    await apiApply({ name, ageGroup, level, gender, date });
+    await apiApply(payload);
     $("applyForm").reset();
-    toast("신청 완료!", "ok");
-    refreshList(false);
+    toast("신청 완료!");
+    refreshList();
   } catch {
-    toast("신청 실패", "bad");
+    toast("신청 실패");
   } finally {
     $("submitBtn").disabled = false;
     $("submitBtn").textContent = "신청하기";
@@ -516,16 +448,17 @@ async function onSubmit(e) {
 
 // 이벤트 연결
 $("applyForm").addEventListener("submit", onSubmit);
-$("refreshBtn").addEventListener("click", () => refreshList(true));
-$("search").addEventListener("input", applyFiltersAndRender);
+$("dateFilter").addEventListener("change", filterAndRender);
+$("search").addEventListener("input", filterAndRender);
+$("refreshBtn").addEventListener("click", refreshList);
 
 // 초기화
 setTimeout(() => {
-  refreshList(false);
-  startPolling();
-}, 300);
+  refreshList();
+  setInterval(() => refreshList(), CONFIG.POLL_MS);
+}, 500);
 
-console.log("✅ 졔 벙 페이지 로드 완료 (날짜 + 나이대 추가 버전)");
+console.log("✅ 졔 벙 페이지 로드 완료 (날짜 제한 버전)");
 </script>
 </body>
 </html>
