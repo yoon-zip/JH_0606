@@ -375,16 +375,22 @@ function filterAndRender() {
 
   let items = allItems;
 
+  // 날짜 필터 (더 안전하게 처리)
   if (selectedDate) {
-    items = items.filter(item => item.date === selectedDate);
+    items = items.filter(item => {
+      const itemDate = String(item.date || "").trim();
+      return itemDate === selectedDate;
+    });
   }
 
+  // 검색어 필터
   if (q) {
     items = items.filter(it => 
       `${it.name} ${it.level} ${it.ageGroup || ''}`.toLowerCase().includes(q)
     );
   }
 
+  // 참가자 수 업데이트
   $("countText").textContent = `${items.length}명`;
 
   const tbody = $("tbody");
@@ -392,6 +398,16 @@ function filterAndRender() {
     tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:60px; color:var(--muted);">표시할 참가자가 없습니다.</td></tr>`;
     return;
   }
+
+  tbody.innerHTML = items.map(it => `
+    <tr>
+      <td>${statusChip(it.status)}</td>
+      <td style="font-weight:700;">${escapeHtml(it.name)}</td>
+      <td>${escapeHtml(it.ageGroup || '-')}</td>
+      <td>${escapeHtml(it.level)}</td>
+    </tr>
+  `).join("");
+}
 
   tbody.innerHTML = items.map(it => `
     <tr>
